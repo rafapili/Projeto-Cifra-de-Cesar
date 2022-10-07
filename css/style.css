@@ -8,7 +8,6 @@
     body{
     background: url(../img/background-matrix.png);
     text-align: center;
-    
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -22,11 +21,11 @@
     .botao-estilo{
       display: inline-block;
       padding: 10px 5px;
-      background: none;
+      background: #0f9200;
       border-radius: 10px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 2px #30cb00;
       text-transform: uppercase;
-      color: #000000;
+      color: white;
       font: 600 1.125rem/1.35 "Poppins", sans-serif;
       max-width: max-content;
       border: none;
@@ -44,6 +43,6 @@
     }
     
     .botao-estilo:hover {
-      background: #617418;
+      background: #006203;
     }
    
