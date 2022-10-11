@@ -1,48 +1,56 @@
-/* Estilos gerais */
-*{  padding: 0; 
-    margin: 0; 
-    border: 0;
+@font-face {
+  font-family:fonte;
+  src: url(./CAESAR.TTF);
 }
-    
-    /* Estilos do corpo */
-    body{
-    background: url(../img/background-matrix.png);
-    text-align: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-    font-family: "Roboto", sans-serif;
-    width: 500px;
-    margin: 0 auto;
-    color: #E0E0E0;
-    }
-    
-    /* Estilos gerais */
-    .botao-estilo{
-      display: inline-block;
-      padding: 10px 5px;
-      background: #0f9200;
-      border-radius: 10px;
-      box-shadow: 0 1px 2px #30cb00;
-      text-transform: uppercase;
-      color: white;
-      font: 600 1.125rem/1.35 "Poppins", sans-serif;
-      max-width: max-content;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .caixa {
-      border-radius: 10px;
-      box-shadow:  10px 20px none;
-    }
-    
-    .caixa-2 {
-      border-radius: 40px;
-      box-shadow:  10px 5px none;
-    }
-    
-    .botao-estilo:hover {
-      background: #006203;
-    }
-   
+
+/* Estilos gerais */
+*{
+  margin-top: 0px;
+  }
+  
+  /* Estilos do corpo */
+  body{
+  text-align: center;
+  background: url(../img/espartanos.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  font-family: fonte;
+  width: 500px;
+  margin: 0 auto;
+  color: #722f37;
+  }
+  
+  /* Estilos gerais */
+  .botao-estilo{
+    display: inline-block;
+    padding: 10px 5px;
+    background: none;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    color: #000000;
+    font: 600 1.125rem/1.35 "Poppins", sans-serif;
+    max-width: max-content;
+    border: none;
+    cursor: pointer;
+  }
+
+  .caixa {
+    color: #722f37;
+    border-radius: 10px;
+    box-shadow:  10px 20px none;
+  }
+  
+  .caixa-2 {
+    border-radius: 40px;
+    box-shadow:  10px 5px none;
+  }
+  
+  .botao-estilo:hover {
+    background: #722f37;
+  }
+
+  textarea{
+    background-color: transparent;
+  }
