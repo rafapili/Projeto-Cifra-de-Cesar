@@ -4,18 +4,7 @@
 }
 
 /* Estilos gerais */
-*{.containerContent{
-  display: flex;
-  flex-direction: column;
-}
-textarea{
-  width: 300px;
-  resize: none;
-}
-.inputIncrement{
-  display: none;
-  width: 300px;
-}
+*{
   margin-top: 0px;
   }
   
@@ -37,14 +26,14 @@ textarea{
     display: inline-block;
     padding: 10px 5px;
     background: white;
-    opacity: 0.7;
+    opacity: 0.5;
     border-radius: 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     text-transform: uppercase;
     color: #000000;
     font: 600 1.125rem/1.35 "Poppins", sans-serif;
     max-width: max-content;
-    border: solid black;
+    border: none;
     cursor: pointer;
   }
 
@@ -66,4 +55,3 @@ textarea{
   textarea{
    opacity:0.8;
   }
-
