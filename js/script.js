@@ -1,90 +1,109 @@
-/* Troca do texto do botão */
+let codificar = document.getElementById("codificar");
+let decodificar = document.getElementById("decodificar");
+let botao = document.getElementById("botao");
+let cesar = document.getElementById("cesar");
+let base64 = document.getElementById("base64");
+let incremento = document.getElementById("incrementar");
+let input = document.getElementById("mensagem");
+let output = document.getElementById("resultado");
+var cifra, acao;
 
-let codificar = document.getElementById('codificar');
-let decodificar = document.getElementById('decodificar');
-let botao = document.getElementById('botao');
+/* Eventos */
+cesar.addEventListener("click", (e) => {
+    incremento.style.display = "block";
+    document.getElementById('key').style.display = 'block';
+    base64.checked = false;
+    cifra = 'cezar';
+    toggleRadio('cifradecesar');
+    toggleRadio('base64');
+});
+base64.addEventListener("click", (e) => {
+    incremento.style.display = "none";
+    document.getElementById('key').style.display = 'none';
+    cesar.checked = false;
+    cifra = 'base64';
+    toggleRadio('base64');
+    toggleRadio('cifradecesar');
+});
 
-function trocaTexto () {
-  if (decodificar.checked) {
-    botao.innerText = "decodificar";
-  } else if (codificar.checked) {
-    botao.innerText = "codificar";
-  }
-}
+codificar.addEventListener("click", (e) => {
+    botao.innerText = "Codificar";
+    decodificar.checked = false;
+    acao = 'codificar';
+    toggleRadio('codificar');
+    toggleRadio('decodificar');
+});
+decodificar.addEventListener("click", (e) => {
+    botao.innerText = "Decodificar";
+    codificar.checked = false;
+    acao = 'decodificar';
+    toggleRadio('decodificar');
+    toggleRadio('codificar');
+});
 
-/* Mostrar ou esconder a opção inclemento */
-let cesar = document.getElementById('cesar');
-let base64 = document.getElementById('base64');
-let incrementar = document.getElementById('incrementar');
+botao.addEventListener("click", (e) => {
+    e.preventDefault();
+    opcaoEscolhida();
+});
 
-function mostraIncremento() { 
-  incrementar.style.display = "block"; 
-}
+window.addEventListener('load', (event) => {
+    cifra = 'cezar';
+    acao = 'codificar';
 
-function escondeIncremento() {
-  incrementar.style.display = "none";
-}
-
-cesar.addEventListener('change', mostraIncremento);
-base64.addEventListener('change', escondeIncremento);
-
-let resposta = document.getElementById('resultado');
-let incremento = parseInt(document.getElementById('incrementacao').value);
-console.log(incremento);
-console.log(typeof incremento);
-
-botao.addEventListener('click', function(event) {
-  event.preventDefault();
-  opcaoEscolhida();
+    cesar.checked = true;
+    toggleRadio('cifradecesar');
+    codificar.checked = true;
+    toggleRadio('codificar');
 });
 
 /* Calculos */
 
-function codificarCesar(mensagem) {
-  mensagem = mensagem.split("");
-    console.log(mensagem);
-  let mensagemAtual = mensagem.map((valor) => valor.charCodeAt());
-    console.log(mensagemAtual);
-  let mensagemInclemento = mensagemAtual.map((valor) => valor+incremento);
-    console.log(mensagemInclemento);
-  let mensagemNova = mensagemInclemento.map((valor) => String.fromCharCode(valor)).join("");
-    console.log(mensagemNova);
-      return mensagemNova;
+function codeCesar(message, decode = true) {
+    message = message.split("");
+    message = message.map((valor) => convertChar(valor));
+    message = message.map((valor) =>
+        decode ? (typeof valor == 'number') ? valor - parseInt(incremento.value) : valor : (typeof valor == 'number') ? valor + parseInt(incremento.value) : valor
+    );
+    return message.map((valor) => (typeof valor == 'number') ? String.fromCharCode(valor) : valor).join("");
+}
+
+function convertChar(valor) {
+    const cadeia = ['!', '?', '@', '_', ':', ';', '/', '%', '&', '(', ')', '=', ' '];
+    if (cadeia.includes(valor)) {
+        return valor;
+    } else {
+        return valor.charCodeAt();
     }
+}
 
-function decodificarCesar(mensagem) {
-  mensagem = mensagem.split("");
-let mensagemAtual = mensagem.map((valor) => valor.charCodeAt())
-let mensagemInclemento = mensagemAtual.map((valor) => valor-incremento);
-let mensagemNova = mensagemInclemento.map((valor) => String.fromCharCode(valor)).join("");
-  console.log(mensagemNova);
-    return mensagemNova;
-  }
-
-function opcaoEscolhida () {
-  let mensagem = document.getElementById('mensagem').value;
-   console.log(mensagem);
-     if (codificar.checked) {
-      if (cesar.checked) {
-      console.log("Codificar Cesar")
-          resposta.innerText = codificarCesar(mensagem);
-      } else {
-          console.log("Codificar Base64")
-          resposta.innerText = btoa(mensagem);
-      } 
-      } else if (decodificar.checked) {
-        if (cesar.checked) {
-          console.log("Decodificar César")
-          resposta.innerText = decodificarCesar(mensagem);
+function opcaoEscolhida() {
+    if (acao == 'codificar') {
+        if (cifra == 'cezar') {
+            //Codificar Cesar
+            output.innerText = codeCesar(input.value, false);
         } else {
-          console.log("Decodificar base64")
-          resposta.innerText = atob(mensagem);
-        } 
+            //Codificar Base64
+            output.innerText = btoa(input.value);
+        }
+    } else if (acao == 'decodificar') {
+        if (cifra == 'cezar') {
+            //Decodificar César
+            output.innerText = codeCesar(input.value);
         } else {
-         resposta.innerText = "Informe o tipo de código ";
-      }
-  }
+            //Decodificar base64
+            output.innerText = atob(input.value);
+        }
+    } else {
+        output.innerText = "Informe o tipo de código ";
+    }
+}
 
-
-
-
+function toggleRadio(id) {
+    const radio = document.getElementById(id);
+    const label = document.querySelector(`label[for=${id}]`);
+    if (radio.checked) {
+        label.classList.add('selected');
+    } else {
+        label.classList.remove('selected');
+    }
+}
