@@ -57,8 +57,3 @@
     opacity: 0.5;
   }
   
-  .containerContent .inputIncrement{
-   display: flex;
-   flex-direction: column ;
-  }
- 

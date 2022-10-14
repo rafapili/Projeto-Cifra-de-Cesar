@@ -1,60 +1,89 @@
-var checkBoxBase64 = document.getElementById("base64");
-var checkBoxCifraDeCesar = document.getElementById("cfc");
-var incrementar = document.getElementById('incrementar');
-const alphabet = ['.','é','ú','ó','á','í','ã','ç','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-var textNoCrypto = document.getElementById("textNoCrypto");
-var textCrypto = document.getElementById("textCrypto");   
+/* Troca do texto do botão */
 
-incrementar.value = 1;
+let codificar = document.getElementById('codificar');
+let decodificar = document.getElementById('decodificar');
+let botao = document.getElementById('botao');
+
+function trocaTexto () {
+  if (decodificar.checked) {
+    botao.innerText = "decodificar";
+  } else if (codificar.checked) {
+    botao.innerText = "codificar";
+  }
+}
+
+/* Mostrar ou esconder a opção inclemento */
+let cesar = document.getElementById('cesar');
+let base64 = document.getElementById('base64');
+let incrementar = document.getElementById('incrementar');
 
 function mostraIncremento() { 
-    incrementar.style.display = "block"; 
-  }
-  
+  incrementar.style.display = "block"; 
+}
+
 function escondeIncremento() {
-    incrementar.style.display = "none";
+  incrementar.style.display = "none";
+}
+
+cesar.addEventListener('change', mostraIncremento);
+base64.addEventListener('change', escondeIncremento);
+
+let resposta = document.getElementById('resultado');
+let incremento = parseInt(document.getElementById('incrementacao').value);
+console.log(incremento);
+console.log(typeof incremento);
+
+botao.addEventListener('click', function(event) {
+  event.preventDefault();
+  opcaoEscolhida();
+});
+
+/* Calculos */
+
+function codificarCesar(mensagem) {
+  mensagem = mensagem.split("");
+    console.log(mensagem);
+  let mensagemAtual = mensagem.map((valor) => valor.charCodeAt());
+    console.log(mensagemAtual);
+  let mensagemInclemento = mensagemAtual.map((valor) => valor+incremento);
+    console.log(mensagemInclemento);
+  let mensagemNova = mensagemInclemento.map((valor) => String.fromCharCode(valor)).join("");
+    console.log(mensagemNova);
+      return mensagemNova;
+    }
+
+function decodificarCesar(mensagem) {
+  mensagem = mensagem.split("");
+let mensagemAtual = mensagem.map((valor) => valor.charCodeAt())
+let mensagemInclemento = mensagemAtual.map((valor) => valor-incremento);
+let mensagemNova = mensagemInclemento.map((valor) => String.fromCharCode(valor)).join("");
+  console.log(mensagemNova);
+    return mensagemNova;
   }
 
-checkBoxCifraDeCesar.addEventListener('change', mostraIncremento);
-checkBoxBase64.addEventListener('change', escondeIncremento);
-incrementar.addEventListener('change', ()=>{
-})
+function opcaoEscolhida () {
+  let mensagem = document.getElementById('mensagem').value;
+   console.log(mensagem);
+     if (codificar.checked) {
+      if (cesar.checked) {
+      console.log("Codificar Cesar")
+          resposta.innerText = codificarCesar(mensagem);
+      } else {
+          console.log("Codificar Base64")
+          resposta.innerText = btoa(mensagem);
+      } 
+      } else if (decodificar.checked) {
+        if (cesar.checked) {
+          console.log("Decodificar César")
+          resposta.innerText = decodificarCesar(mensagem);
+        } else {
+          console.log("Decodificar base64")
+          resposta.innerText = atob(mensagem);
+        } 
+        } else {
+         resposta.innerText = "Informe o tipo de código ";
+      }
+  }
 
-function Codificar() {
-    
-    
-    var arryText = textNoCrypto.value.toLowerCase().split('') 
-    const getLetter = arryText.map((letter)=>{
-    const indexLetter = alphabet.indexOf(letter)
-    const restartIndex = alphabet.indexOf('.');
-    if(indexLetter != -1){
-     var cryptoLetter = indexLetter + parseInt(incrementar.value)
-      if(cryptoLetter >= alphabet.length){
-          cryptoLetter = parseInt(restartIndex) + parseInt(incrementar.value)
-          console.log(cryptoLetter);
-      }  
-    }
-    return alphabet[cryptoLetter]
-    })
-   
-    textCrypto.value = getLetter.join('')
-}
 
-function Decodificar(){
-    
-    var arryText = textNoCrypto.value.toLowerCase().split('') 
-    const getLetter = arryText.map((letter)=>{
-    const indexLetter = alphabet.indexOf(letter)
-    const restartIndex = alphabet.indexOf('.');
-    if(indexLetter != -1){
-     var cryptoLetter = indexLetter - parseInt(incrementar.value)
-      if(cryptoLetter >= alphabet.length){
-          cryptoLetter = parseInt(restartIndex) - parseInt(incrementar.value)
-          console.log(cryptoLetter);
-      }  
-    }
-    return alphabet[cryptoLetter]
-    })
-   
-    textCrypto.value = getLetter.join('')
-}
+
