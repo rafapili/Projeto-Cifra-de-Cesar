@@ -1,59 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cifra de cesar</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Codification</title>
+  </head>
 
-    </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1>!Codificador!</h1>
+        <form>
+          
+          <label id="selecione" for="select"></label>
+          <select name="select" class="select" id="select">
+            <option value="selecione" disabled selected>Selecione</option>
+            <option value="base64">Base64</option>
+            <option value="cifra">Cifra de César</option>
+          </select>
+          <textarea
+            name="mensagem"
+            id="mensagem"
+            cols="50"
+            rows="4"
+            placeholder="Digite a sua mensagem..."
+          ></textarea>
+          <div>
+            <label class="incremento" for="range">Incremento:</label>
+            <div class="slider-range">
+              <input
+                type="range"
+                value="1"
+                min="1"
+                max="26"
+                class="range"
+                id="range"
+                oninput="rangenumber.value=value"
+              />
+              <input
+                type="number"
+                value="1"
+                id="rangenumber"
+                min="1"
+                max="26"
+                oninput="range.value=value"
+              />
+            </div>
+          </div>
 
-<body>
-    <header>  
-        <h1 class="box">Codificador esparta</h1>
-    </header>  
+          <div class="radio-button">
+            <div class="radio">
+              <input
+                type="radio"
+                name="codificar"
+                id="codificar"
+                value="codificar"
+                checked
+              />
+              <label for="codificar">Codificar</label>
+            </div>
 
-<main>
-    <form>
-    <section>
-        <input id="cesar" type="radio" name="opcao" value="cifradecesar" class="cifradecesar">
-        <label for="base64">Cifra de Cesar</label>
-        <input id="base64" type="radio" name="opcao" value="base64" checked>
-        <label for="base64">Base64</label>
-    </section>
+            <div class="radio">
+              <input
+                type="radio"
+                name="codificar"
+                id="decodificar"
+                value="decodificar"
+              />
+              <label for="decodificar">Decodificar</label>
+            </div>
+          </div>
 
-    <section>
-        <label><strong>Mensagem:</strong></label>
-     <br>   
-        <textarea name="mensagem" id="mensagem" cols="50" rows="10"  class="caixa" placeholder="Digite a sua mensagem..."></textarea>
-    </section>
-
-    <section id="incrementar" >
-        <label for="incrementar">Incremento:</label>
-        <input type="number" id="incrementacao" value="1" name="incrementar" class="box-2">   
-    </section>
-
-    <section>
-        <input  type="radio" id="codificar" name="opcao2" onclick="trocaTexto ()"checked>
-        <label for="codificar" >Codificar</label>
-        <input  type="radio" id="decodificar" name="opcao2" onclick="trocaTexto ()">
-        <label for="decodificar">Decodificar</label>
-    </section>
- 
-    <br>
-        <button id="botao" class="botao-estilo">Codificar</button>
-    </section>
-
-    <br>
-    <br>
-
-        <label><strong>Resultado:</strong></label>
-    <br>
-         <textarea name="resultado" id="resultado" cols="50" rows="10"  class="box"></textarea>
-    </section>
-    </form>
-</main>
-    </body>
+          <textarea
+            id="resultado"
+            class="mensagem resultado"
+            cols="50"
+            rows="4"
+            readonly
+            placeholder="(Des)Codificando..."
+          ></textarea>
+          <div class="btn">
+            <button>Codificar Mensagem!</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script src="./Js/script.js"></script>
+  </body>
 </html>

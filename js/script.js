@@ -1,90 +1,72 @@
-/* Troca do texto do botão */
+let selecione = document.querySelector(".select");
+let incremento = document.querySelector(".incremento-container");
+let btn = document.querySelector("button");
+let radiobtn = document.querySelector(".radio-button");
+let codificar = document.querySelector("#codificar");
+let decodificar = document.querySelector("#decodificar");
 
-let codificar = document.getElementById('codificar');
-let decodificar = document.getElementById('decodificar');
-let botao = document.getElementById('botao');
-
-function trocaTexto () {
-  if (decodificar.checked) {
-    botao.innerText = "decodificar";
-  } else if (codificar.checked) {
-    botao.innerText = "codificar";
+selecione.addEventListener("click", function () {
+  if (selecione.value == "cifra") {
+    incremento.style.display = "block";
+  } else {
+    incremento.style.display = "none";
   }
-}
-
-/* Mostrar ou esconder a opção inclemento */
-let cesar = document.getElementById('cesar');
-let base64 = document.getElementById('base64');
-let incrementar = document.getElementById('incrementar');
-
-function mostraIncremento() { 
-  incrementar.style.display = "block"; 
-}
-
-function escondeIncremento() {
-  incrementar.style.display = "none";
-}
-
-cesar.addEventListener('change', mostraIncremento);
-base64.addEventListener('change', escondeIncremento);
-
-let resposta = document.getElementById('resultado');
-let incremento = parseInt(document.getElementById('incrementacao').value);
-console.log(incremento);
-console.log(typeof incremento);
-
-botao.addEventListener('click', function(event) {
-  event.preventDefault();
-  opcaoEscolhida();
 });
 
-/* Calculos */
+function base64() {
+  let mensagem = document.querySelector("#mensagem").value;
 
-function codificarCesar(mensagem) {
-  mensagem = mensagem.split("");
-    console.log(mensagem);
-  let mensagemAtual = mensagem.map((valor) => valor.charCodeAt());
-    console.log(mensagemAtual);
-  let mensagemInclemento = mensagemAtual.map((valor) => valor+incremento);
-    console.log(mensagemInclemento);
-  let mensagemNova = mensagemInclemento.map((valor) => String.fromCharCode(valor)).join("");
-    console.log(mensagemNova);
-      return mensagemNova;
-    }
-
-function decodificarCesar(mensagem) {
-  mensagem = mensagem.split("");
-let mensagemAtual = mensagem.map((valor) => valor.charCodeAt())
-let mensagemInclemento = mensagemAtual.map((valor) => valor-incremento);
-let mensagemNova = mensagemInclemento.map((valor) => String.fromCharCode(valor)).join("");
-  console.log(mensagemNova);
-    return mensagemNova;
+  if (codificar.checked) {
+    let codificado = btoa(mensagem);
+    return codificado;
+  } else if (decodificar.checked) {
+    let decodificado = atob(mensagem);
+    return decodificado;
   }
+}
 
-function opcaoEscolhida () {
-  let mensagem = document.getElementById('mensagem').value;
-   console.log(mensagem);
-     if (codificar.checked) {
-      if (cesar.checked) {
-      console.log("Codificar Cesar")
-          resposta.innerText = codificarCesar(mensagem);
+function cifraCesar() {
+  let msg = document.querySelector("#mensagem").value;
+  let incremento = parseInt(document.querySelector("#rangenumber").value);
+  let saida = '';
+
+  if (codificar.checked) {
+    for (let i = 0; i < msg.length; i++) {
+      if (msg[i] === msg[i].toUpperCase()) {
+        saida += String.fromCharCode((msg.charCodeAt(i) + incremento - 65) % 26 + 65); 
       } else {
-          console.log("Codificar Base64")
-          resposta.innerText = btoa(mensagem);
-      } 
-      } else if (decodificar.checked) {
-        if (cesar.checked) {
-          console.log("Decodificar César")
-          resposta.innerText = decodificarCesar(mensagem);
-        } else {
-          console.log("Decodificar base64")
-          resposta.innerText = atob(mensagem);
-        } 
-        } else {
-         resposta.innerText = "Informe o tipo de código ";
+        saida += String.fromCharCode((msg.charCodeAt(i) + incremento - 97) % 26 + 97);
       }
+    }
+    return saida;
+
+  } else if (decodificar.checked) {
+    for (let i = 0; i < msg.length; i++) {
+      if (msg.charCodeAt(i) >= 97 && msg.charCodeAt(i) <= 122) {
+        saida += String.fromCharCode((msg.charCodeAt(i) - 97 -  incremento + 26) % 26 + 97);
+      } else if (msg.charCodeAt(i) >= 65 && msg.charCodeAt(i) <= 90) {
+        saida += String.fromCharCode((msg.charCodeAt(i) - 65 - incremento + 26) % 26 + 65);
+      } else {
+        saida += String.fromCharCode(msg.charCodeAt(i));
+      }
+    }
+    return saida;
   }
+}
 
+radiobtn.addEventListener("click", function () {
+  if (codificar.checked) {
+    btn.innerHTML = "Codificar Mensagem!";
+  } else if (decodificar.checked) {
+    btn.innerHTML = "Decodificar Mensagem!";
+  }
+});
 
-
-
+btn.addEventListener("click", function (event) {
+  event.preventDefault();
+  if (selecione.value === "base64") {
+    resultado.innerText = base64();
+  } else if (selecione.value === "cifra") {
+    resultado.innerText = cifraCesar();
+  }
+});
