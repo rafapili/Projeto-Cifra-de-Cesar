@@ -1,17 +1,21 @@
 let selecione = document.querySelector(".select");
-let incremento = document.querySelector(".incremento-container");
+let incremento = document.querySelectorAll(".incremento-container");
 let btn = document.querySelector("button");
 let radiobtn = document.querySelector(".radio-button");
 let codificar = document.querySelector("#codificar");
 let decodificar = document.querySelector("#decodificar");
 
-selecione.addEventListener("click", function () {
+let esconde_incremento = document.getElementById("esconde_incremento")
+
+function Hidden() {
   if (selecione.value == "cifra") {
-    incremento.style.display = "block";
+    esconde_incremento.style.display = "block"
   } else {
-    incremento.style.display = "none";
+    esconde_incremento.style.display = "none";
   }
-});
+}
+
+selecione.addEventListener('change', Hidden);
 
 function base64() {
   let mensagem = document.querySelector("#mensagem").value;
@@ -60,6 +64,7 @@ radiobtn.addEventListener("click", function () {
   } else if (decodificar.checked) {
     btn.innerHTML = "Decodificar Mensagem!";
   }
+  console.log(selectCesar);
 });
 
 btn.addEventListener("click", function (event) {
